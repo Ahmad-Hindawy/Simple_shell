@@ -60,10 +60,9 @@ int get_command(char *str){
 }
 
 void signal_handler (int sig) {
-   // wait(NULL);
     printf("inside handler \n") ;
     FILE *fp;
-    fp  = fopen ("data.log", "a");
+    fp  = fopen ("/home/mahmoud/Desktop/Unix_shell/data.log", "a");       // NOTE : should put fixed path to overcome any segmentation fault
     fprintf(fp, "\n Child process was terminated in signal handler \n");
     fclose(fp) ;
     return ;
