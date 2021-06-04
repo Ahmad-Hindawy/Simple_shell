@@ -24,8 +24,3 @@ To exit press `CTRL+c`
 - [Tutorial to code a simple shell in C](https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e)
 - [GNU Readline Library](https://tiswww.case.edu/php/chet/readline/rltop.html#Documentation) 
 
-### TODO:
-- Add shell builtin functions(cd , help , exit ,etc..)
-- Add signal handler and "&" operator handling
-- Another implementation for reading and parsing command (Optional)
-- More testing and better documentation
