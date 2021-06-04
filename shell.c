@@ -63,15 +63,13 @@ int get_command(char *str){
 
 //----------single Handler to write on the log file -----------------------------------
 void signal_handler (int sig) {
-    printf("inside handler \n") ;
+    //---------*****IMP NOTE: data.log txt file is saved in (/var/tmp)fixed pathin the OS --------------
     FILE *fp;
-//---------*****IMP NOTE: should put fixed path to overcome any segmentation fault--------------
-    fp  = fopen ("/home/nourhan/Nourhan/OS/Unix_shell/data.log", "a");
+    fp  = fopen ("/var/tmp/data.log", "a");
     fprintf(fp, "\n Child process was terminated in signal handler \n");
     fclose(fp) ;
     return ;
 }
-
 //---------------------Executes the command given in an array of tokens----------------------------
 void execute(char **commands){
 	int ret;
@@ -83,7 +81,6 @@ void execute(char **commands){
     // by comparing the elements of token_array,Once it is founded, set the flag to be 1
     //and change the element by NULL
     while (commands[i] != NULL) {
-        printf("commands= %s \n" , commands[i]) ;
         if (!strcmp(commands[i] , "&")){
             flag = 1 ; //set flag=1 indicating that this process will run in background
             commands[i] = NULL ;
@@ -102,7 +99,6 @@ void execute(char **commands){
     //--------------------handle cd command---------------------------
     //by comparing the elements of token_array,Once it is founded,change directory to what the user entered as argument
     if(strcmp(commands[0], "cd") == 0){
-        printf("inside chdir function");
         chdir(commands[1]) ;
     }
 
@@ -118,7 +114,6 @@ void execute(char **commands){
         else if (pid == 0){	//child proccess creation is succeeded
             printf("we are in child process \n") ;
             ret = execvp(commands[0],commands);      // execution the process
-            printf("excution is done\n");
 
             if (ret< 0) {	//execution is failed
                 printf("\nCommand execution failed!");
@@ -145,7 +140,6 @@ void execute(char **commands){
     //-------------------------ForeGround Case---------------------------*
             else if (flag == 0) {
                 printf("Child is operating in ForeGround \n") ;
-                printf("Waiting.....\n");
         //--------waiting the child process to terminate----------
             /*WIFEXITED macro will be TRUE if the child terminated normally.
             /*WEXITSTATUS macro is employed only if WIFEXITED returned true to
@@ -153,7 +147,6 @@ void execute(char **commands){
             waitpid(pid,&stat,0);
             if (WIFEXITED(stat)){
                 printf("Exit status: %d\n", WEXITSTATUS(stat));
-                printf(" Wait is DONE \n");
             }
         //---------------------Execution is DONE successfully ---------------------------
             printf("(Parent) child process is exited \n") ;
